@@ -2,23 +2,33 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BusLineRepository;
 
-#[ORM\Entity]
-#[ApiResource]
+#[ORM\Entity(repositoryClass: BusLineRepository::class)]
 class BusLine
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private string $name;
 
-    #[ORM\Column(type: 'text', nullable: true)]
-    private $description;
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
-    // Getters and setters...
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
 }

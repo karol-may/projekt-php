@@ -2,26 +2,33 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ScheduleRepository;
 
-#[ORM\Entity]
-#[ApiResource]
+#[ORM\Entity(repositoryClass: ScheduleRepository::class)]
 class Schedule
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
-
-    #[ORM\ManyToOne(targetEntity: Route::class)]
-    private $route;
-
-    #[ORM\ManyToOne(targetEntity: BusStop::class)]
-    private $stop;
+    private int $id;
 
     #[ORM\Column(type: 'datetime')]
-    private $departureTime;
+    private \DateTime $time;
 
-    // Getters and setters...
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getTime(): \DateTime
+    {
+        return $this->time;
+    }
+
+    public function setTime(\DateTime $time): self
+    {
+        $this->time = $time;
+        return $this;
+    }
 }

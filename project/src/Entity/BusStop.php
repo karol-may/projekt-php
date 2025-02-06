@@ -2,23 +2,33 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BusStopRepository;
 
-#[ORM\Entity]
-#[ApiResource]
+#[ORM\Entity(repositoryClass: BusStopRepository::class)]
 class BusStop
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private string $location;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $location;
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
-    // Getters and setters...
+    public function getLocation(): string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): self
+    {
+        $this->location = $location;
+        return $this;
+    }
 }

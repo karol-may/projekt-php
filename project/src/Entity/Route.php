@@ -2,30 +2,33 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RouteRepository;
 
-#[ORM\Entity]
-#[ApiResource]
+#[ORM\Entity(repositoryClass: RouteRepository::class)]
 class Route
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
-    #[ORM\ManyToOne(targetEntity: BusLine::class)]
-    private $line;
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $description;
 
-    #[ORM\ManyToMany(targetEntity: BusStop::class)]
-    private $stops;
-
-    public function __construct()
+    public function getId(): int
     {
-        $this->stops = new ArrayCollection();
+        return $this->id;
     }
 
-    // Getters and setters...
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
 }
